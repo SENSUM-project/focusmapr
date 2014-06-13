@@ -2,10 +2,11 @@
 \alias{MosaicRasters}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
+Create a tile mosaic of input rasters
 %%  ~~function to do ... ~~
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Builds a single mosaic from a set of raster tiles. It uses the \code{do.Mosaic} function of the package \code{raster} (\seealso{\link{raster}})
 }
 \usage{
 MosaicRasters(paths)
@@ -13,51 +14,20 @@ MosaicRasters(paths)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{paths}{
-%%     ~~Describe \code{paths} here~~
+a list of input rasters
 }
-}
-\details{
-%%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+a single mosaic raster
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
+
+\author{Massimiliano Pittore}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function (paths) 
-{
-    input.ras <- lapply(paths, raster)
-    input.arg <- input.ras
-    names(input.arg) <- NULL
-    input.arg$fun <- max
-    output.ras <- do.call(mosaic, input.arg)
-    return(output.ras)
-  }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ mosaic }

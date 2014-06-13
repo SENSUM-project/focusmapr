@@ -2,10 +2,11 @@
 \alias{SamplingPoints}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
+Generates a set of sampling points according to a density distribution
 %%  ~~function to do ... ~~
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+A set of spatial points is generated using the input raster as spatial density distribution. The function created an inhomogeneous Poisson Point Process to generate the points. A scaling coefficient is used to control the final amount of sampling points.
 }
 \usage{
 SamplingPoints(rast, coef)
@@ -14,56 +15,24 @@ SamplingPoints(rast, coef)
 \arguments{
   \item{rast}{
 %%     ~~Describe \code{rast} here~~
+input raster defining the spatial density of probability of sampling. A \link{FocusMap}{focus map} is typically used 
 }
   \item{coef}{
 %%     ~~Describe \code{coef} here~~
+scaling coefficient to tune the number of generated points
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+A set of sampling points.
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
+
+\author{Massimiliano Pittore}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (rast, coef) 
-{
-    mbox <- bbox(rast)
-    mat <- as.matrix(flip(rast, "y"))
-    ndens <- as.im(mat * coef)
-    Z <- rpoispp(ndens)
-    x <- Z$x * ((mbox[1, 2] - mbox[1, 1])/ndens$xrange[2]) + 
-        mbox[1, 1]
-    y <- (Z$y) * ((mbox[2, 2] - mbox[2, 1])/ndens$yrange[2]) + 
-        mbox[2, 1]
-    return(SpatialPoints(cbind(x, y)))
-  }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ sampling }

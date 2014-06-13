@@ -2,10 +2,11 @@
 \alias{FocusMap}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
+create a new \code{raster} object representing a Focus Map from a list of input layers
 %%  ~~function to do ... ~~
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+the function applies a pooling method to the list of input rasters, returning the result in form of a raster with same extent and resolution. The pooling methods are specified by the argument \code{pooling}
 }
 \usage{
 FocusMap(layers, pooling = "loglinear", weigths)
@@ -14,65 +15,44 @@ FocusMap(layers, pooling = "loglinear", weigths)
 \arguments{
   \item{layers}{
 %%     ~~Describe \code{layers} here~~
+A list of \code{raster} objects with same resolution
 }
   \item{pooling}{
 %%     ~~Describe \code{pooling} here~~
+The desired pooling method. Possible values are
+\item{linear}{additive pooling}
+\item{loglinear}{multiplicative pooling}
 }
   \item{weigths}{
 %%     ~~Describe \code{weigths} here~~
+a vector of (real numbers) weights. The lenght of the vector is equal to the number of input layers. Weights sum to one for the linear pooling, and are not constrained in case of loglinear pooling.
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+a raster with same extent and resolution of input layers, representing the estimated focus map
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
+
+\author{ Massimiliano Pittore }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function (layers, pooling = "loglinear", weigths) 
-{
-    if (pooling == "loglinear") {
-        out <- log(layers[[1]] + 1e-05) * weigths[1]
-        for (i in 2:length(layers)) {
-            out <- out + log(layers[[i]] + 1e-05) * weigths[i]
-        }
-        return(exp(out))
-    }
-    else if (pooling == "linear") {
-        out <- layers[[1]] * weigths[1]
-        for (i in 2:length(layers)) {
-            out <- out + layers[[i]] * weigths[i]
-        }
-        return(out)
-    }
-    else stop(paste("unknown pooling type: ", pooling, sep = ""))
-  }
+# loading two raster layers from disk
+r1 <- system.file("extdata/p1dens.tif", package="focusmapr")
+r2 <- system.file("extdata/p2dens.tif", package="focusmapr")
+layers <- LoadRasterLayers(c(r1,r2))
+# normalize the layers
+norm_layers <- lapply(layers,NormalizeLayer)
+
+# create the focus map with a multiplicative pooling and inequal weights
+focmap1 <- FocusMap(norm_layers,pooling="loglinear",weigths=c(.7,.3))
+
+# create another focus map with a additive pooling and equal weights
+focmap2 <- FocusMap(norm_layers,pooling="linear",weigths=c(.5,.5))
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ focus map }

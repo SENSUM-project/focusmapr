@@ -3,12 +3,10 @@
 \alias{focusmapr}
 \docType{package}
 \title{
-What the package does (short line)
-~~ package title ~~
+Computation of Focus Maps
 }
 \description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
+The package implements the concept of Focus Maps, a raster description of the spatial data sampling probability (or "importance") as a result of a combination of several raster or vector input layers. Every input layer is "mapped" (usually normalized) and "pooled"
 }
 \details{
 \tabular{ll}{
@@ -16,27 +14,24 @@ Package: \tab focusmapr\cr
 Type: \tab Package\cr
 Version: \tab 1.0\cr
 Date: \tab 2014-06-11\cr
-License: \tab What license is it under?\cr
+License: \tab GPL \cr
 }
-~~ An overview of how to use the package, including the most important ~~
-~~ functions ~~
 }
 \author{
-Who wrote it
+Massimiliano Pittore
+}
 
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
-}
-\references{
-~~ Literature or other references for background information ~~
-}
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in ~~
-~~ the R documentation directory ~~
 \keyword{ package }
-\seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
+
 \examples{
-~~ simple examples of the most important functions ~~
+
+# loading two raster layers from disk
+r1 <- system.file("extdata/p1dens.tif", package="focusmapr")
+r2 <- system.file("extdata/p2dens.tif", package="focusmapr")
+layers <- LoadRasterLayers(c(r1,r2))
+# normalize the layers
+norm_layers <- lapply(layers,NormalizeLayer)
+# create the focus map with a multiplicative pooling and inequal weights
+focmap <- FocusMap(norm_layers,pooling="loglinear",weigths=c(.7,.3))
+
 }

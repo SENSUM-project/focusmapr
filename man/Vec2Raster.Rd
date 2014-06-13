@@ -2,6 +2,7 @@
 \alias{Vec2Raster}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
+Convert a vector (shapefile) layer into a raster layer
 %%  ~~function to do ... ~~
 }
 \description{
@@ -14,54 +15,31 @@ Vec2Raster(vec, ras_attr, res)
 \arguments{
   \item{vec}{
 %%     ~~Describe \code{vec} here~~
+spatial object of type \code{SpatialPolygonsDataFrame} with a set of numeric attributes (at least one) 
 }
   \item{ras_attr}{
 %%     ~~Describe \code{ras_attr} here~~
+attribute of the vector layer used to generate the raster. The attribute must exist, and be a number
 }
   \item{res}{
 %%     ~~Describe \code{res} here~~
+resolution of the output raster. This argument must be provided. The resolution must be specified in the same unit of measure related to the input CRS.
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+The drivers available will depend on the installation of GDAL/OGR, and can vary; the ogrDrivers() function shows which are available, and which may be written (but all are assumed to be readable). Note that stray files in data source directories (such as *.dbf) may lead to suprious errors that accompanying *.shp are missing.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+a raster with same extent as input vector, and resolution specified by the user.
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
+
+\author{Massimiliano Pittore}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function (vec, ras_attr, res) 
-{
-    r <- raster(extent(vec))
-    res(r) <- res
-    ras <- rasterize(vec, r, field = ras_attr)
-    return(ras)
-  }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ vector }

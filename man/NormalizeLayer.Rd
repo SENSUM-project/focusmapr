@@ -2,10 +2,11 @@
 \alias{NormalizeLayer}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
+Performs a mapping of input layer through normalization
 %%  ~~function to do ... ~~
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Normalizes a set of input rasters. Normalization either simply re-scales the raster values to fit the interval [0,1], or uses a rejection bounds specified by the argument \code{rej}. If rejection bounds are used, normalization is applied only within the percentiles defined by the rejection bounds. Rejection bounds are useful to avoid bias from outliers.
 }
 \usage{
 NormalizeLayer(rast, norm_type = "linear", rej = NULL)
@@ -13,75 +14,32 @@ NormalizeLayer(rast, norm_type = "linear", rej = NULL)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{rast}{
-%%     ~~Describe \code{rast} here~~
+list of input \code{raster} layers
 }
   \item{norm_type}{
-%%     ~~Describe \code{norm_type} here~~
-}
+Type of normalization. Currently only \code{norm_type="linear"} is implemented.}
   \item{rej}{
-%%     ~~Describe \code{rej} here~~
+Rejection bounds. Specify two percentiles outside which normalization is not applied. if \code{rej=c(0,1)} is applied, this is equivalent to simple normalization.
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
+a list of normalized \code{raster} layers
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+\author{Massimiliano Pittore}
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+%% ~Make other sections like Warning with \section{Warning }{....} 
+
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (rast, norm_type = "linear", rej = NULL) 
-{
-    if (norm_type == "linear") {
-        if (!is.null(rej)) {
-            if (rej[1] < 0 | rej[2] > 100 | rej[1] >= rej[2]) 
-                stop("error in the rejection bound")
-            qq <- quantile(rast, prob = rej)
-            min <- qq[1]
-            max <- qq[2]
-        }
-        else {
-            qq <- quantile(rast, prob = c(0, 1))
-            min <- qq[1]
-            max <- qq[2]
-        }
-        if (max < 1e-08) 
-            stop("upper normalization value < 1e-8 (almost zero)")
-        rast[rast < min] <- min
-        rast[rast > max] <- max
-        out <- calc(rast, fun = function(x) {
-            (x - min)/(max - min)
-        })
-        return(out)
-    }
-    else stop(paste("unknown normalization type: ", norm_type, 
-        sep = ""))
-  }
+# loading two raster layers from disk
+r1 <- system.file("extdata/p1dens.tif", package="focusmapr")
+r2 <- system.file("extdata/p2dens.tif", package="focusmapr")
+layers <- LoadRasterLayers(c(r1,r2))
+# normalize the layers with a 0.01 rejection bound
+norm_layers<-lapply(layers,FUN=function(x) NormalizeLayer(x,rej=c(0.01,0.99)))
+	
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ ~normalization }
