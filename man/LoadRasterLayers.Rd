@@ -57,7 +57,7 @@ Massimiliano Pittore
 
 r1 <- system.file("extdata/p1dens.tif", package="focusmapr")
 r2 <- system.file("extdata/p2dens.tif", package="focusmapr")
-layers<-LoadRasterLayers(c(r1,r2))
+layers<-LoadRasterLayers(c(r1,r2),resamp=TRUE)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

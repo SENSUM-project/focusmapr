@@ -28,7 +28,7 @@ Massimiliano Pittore
 # loading two raster layers from disk
 r1 <- system.file("extdata/p1dens.tif", package="focusmapr")
 r2 <- system.file("extdata/p2dens.tif", package="focusmapr")
-layers <- LoadRasterLayers(c(r1,r2))
+layers <- LoadRasterLayers(c(r1,r2),resamp=TRUE)
 # normalize the layers
 norm_layers <- lapply(layers,NormalizeLayer)
 # create the focus map with a multiplicative pooling and inequal weights

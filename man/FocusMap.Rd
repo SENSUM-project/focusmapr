@@ -30,7 +30,7 @@ a vector of (real numbers) weights. The lenght of the vector is equal to the num
 }
 
 \value{
-a raster with same extent and resolution of input layers, representing the estimated focus map
+a raster with same extent of the intersection of input layers representing the estimated focus map
 }
 
 \author{ Massimiliano Pittore }
@@ -42,7 +42,7 @@ a raster with same extent and resolution of input layers, representing the estim
 # loading two raster layers from disk
 r1 <- system.file("extdata/p1dens.tif", package="focusmapr")
 r2 <- system.file("extdata/p2dens.tif", package="focusmapr")
-layers <- LoadRasterLayers(c(r1,r2))
+layers <- LoadRasterLayers(c(r1,r2),resamp=TRUE)
 # normalize the layers
 norm_layers <- lapply(layers,NormalizeLayer)
 

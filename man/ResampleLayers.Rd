@@ -43,7 +43,7 @@ Massimiliano Pittore
 \examples{
 r1 <- system.file("extdata/p1dens.tif", package="focusmapr")
 r2 <- system.file("extdata/p2dens.tif", package="focusmapr")
-layers <- LoadRasterLayers(c(r1,r2))
+layers <- LoadRasterLayers(c(r1,r2),resamp=TRUE)
 # use the resolution of the second layer for resampling the first
 resamp_layers<-ResampleLayers(layers,ref_index=2)
 }
