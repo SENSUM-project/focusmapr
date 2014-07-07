@@ -6,7 +6,7 @@ Generates a set of sampling points according to a density distribution
 %%  ~~function to do ... ~~
 }
 \description{
-A set of spatial points is generated using the input raster as spatial density distribution. The function created an inhomogeneous Poisson Point Process to generate the points. A scaling coefficient is used to control the final amount of sampling points.
+A set of spatial points is generated using the input raster as spatial density distribution. The function creates an inhomogeneous Poisson Point Process to generate the points. A scaling coefficient is used to control the final amount of sampling points.
 }
 \usage{
 SamplingPoints(rast, coef)
@@ -15,7 +15,7 @@ SamplingPoints(rast, coef)
 \arguments{
   \item{rast}{
 %%     ~~Describe \code{rast} here~~
-input raster defining the spatial density of probability of sampling. A \link{FocusMap}{focus map} is typically used 
+input raster defining the spatial density of probability of sampling. A \link{FocusMap} is typically used 
 }
   \item{coef}{
 %%     ~~Describe \code{coef} here~~

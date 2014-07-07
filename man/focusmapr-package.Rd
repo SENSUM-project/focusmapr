@@ -6,7 +6,8 @@
 Computation of Focus Maps
 }
 \description{
-The package implements the concept of Focus Maps, a raster description of the spatial data sampling probability (or "importance") as a result of a combination of several raster or vector input layers. Every input layer is "mapped" (usually normalized) and "pooled"
+The package implements the concept of Focus Maps, a raster description of the spatial data sampling probability (or "importance") as a result of a combination of several raster or vector input layers. 
+Every input layer is "mapped" (usually normalized) and "pooled". Currently two normalizations are available, min-max and logarithmic. In both cases rejection bounds can be specified in order to apply the normalization only with a certain quantile range.
 }
 \details{
 \tabular{ll}{

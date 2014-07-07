@@ -6,7 +6,8 @@ create a new \code{raster} object representing a Focus Map from a list of input 
 %%  ~~function to do ... ~~
 }
 \description{
-the function applies a pooling method to the list of input rasters, returning the result in form of a raster with same extent and resolution. The pooling methods are specified by the argument \code{pooling}
+the function applies a pooling method to the list of input rasters, returning the result in form of a raster with same extent and resolution. 
+The pooling methods are specified by the argument \code{pooling}
 }
 \usage{
 FocusMap(layers, pooling = "loglinear", weigths)

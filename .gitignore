@@ -1,0 +1,11 @@
+# History files
+.Rhistory
+
+# tmp files
+*~
+
+# package files
+*.zip
+
+# R data files from past sessions
+.Rdata

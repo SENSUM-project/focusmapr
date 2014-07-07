@@ -18,9 +18,11 @@ function(rast,norm_type="linear",rej=NULL)
 		}
 		if (max<1e-8) stop('upper normalization value < 1e-8 (almost zero)')
 		
-		rast[rast<min]<-min
-		rast[rast>max]<-max
 		out<-calc(rast,fun=function(x) {(x-min)/(max-min)})
+		#clip output
+		out[out<0]<-0
+		out[out>1]<-1
+		
 		return(out)
 	}
 	else stop (paste("unknown normalization type: ",norm_type,sep=''))
